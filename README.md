@@ -1,6 +1,16 @@
-# AngularPage
+# Angular Auth Page
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+
+## About
+
+A responsive and modern authentication page built with:
+
+- **Angular**
+- **TailwindCSS**
+- **Flowbite**
+
+This project serves as a foundational layout for login and registration pages, showcasing clean UI components and styling, along with reactive form handling in Angular.
 
 ## Development server
 
