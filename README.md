@@ -7,6 +7,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 A responsive and modern authentication page built with:
 
 - **Angular**
+- **TypeScript**
 - **TailwindCSS**
 - **Flowbite**
 
