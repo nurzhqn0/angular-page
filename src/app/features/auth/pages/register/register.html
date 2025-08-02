@@ -1,0 +1,397 @@
+<div>
+  <div class="mb-6">
+    <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+      Create your account
+    </h3>
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+      Already have an account?
+      <a
+        routerLink="/auth/login"
+        class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400"
+      >
+        Sign in here
+      </a>
+    </p>
+  </div>
+
+  <div
+    *ngIf="successMessage"
+    class="mb-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
+  >
+    <div class="flex items-center">
+      <svg
+        class="w-5 h-5 text-green-600 dark:text-green-400 mr-2"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      <p class="text-sm text-green-600 dark:text-green-400">
+        {{ successMessage }}
+      </p>
+    </div>
+  </div>
+
+  <div
+    *ngIf="errorMessage"
+    class="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+  >
+    <p class="text-sm text-red-600 dark:text-red-400">{{ errorMessage }}</p>
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label
+          for="firstName"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+          First name
+        </label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          autocomplete="given-name"
+          [class]="
+            'block w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 ' +
+            (firstName?.invalid && firstName?.touched
+              ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20'
+              : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white')
+          "
+          placeholder="Enter first name"
+        />
+
+        <div *ngIf="firstName?.invalid && firstName?.touched" class="mt-1">
+          <p
+            *ngIf="firstName?.errors?.['required']"
+            class="text-sm text-red-600 dark:text-red-400"
+          >
+            First name is required
+          </p>
+          <p
+            *ngIf="firstName?.errors?.['minlength']"
+            class="text-sm text-red-600 dark:text-red-400"
+          >
+            First name must be at least 2 characters
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="lastName"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+          Last name
+        </label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          autocomplete="family-name"
+          [class]="
+            'block w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 ' +
+            (lastName?.invalid && lastName?.touched
+              ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20'
+              : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white')
+          "
+          placeholder="Enter last name"
+        />
+
+        <div *ngIf="lastName?.invalid && lastName?.touched" class="mt-1">
+          <p
+            *ngIf="lastName?.errors?.['required']"
+            class="text-sm text-red-600 dark:text-red-400"
+          >
+            Last name is required
+          </p>
+          <p
+            *ngIf="lastName?.errors?.['minlength']"
+            class="text-sm text-red-600 dark:text-red-400"
+          >
+            Last name must be at least 2 characters
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label
+        for="email"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+      >
+        Email address
+      </label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        [class]="
+          'block w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 ' +
+          (email?.invalid && email?.touched
+            ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20'
+            : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white')
+        "
+        placeholder="Enter your email"
+      />
+
+      <div *ngIf="email?.invalid && email?.touched" class="mt-1">
+        <p
+          *ngIf="email?.errors?.['required']"
+          class="text-sm text-red-600 dark:text-red-400"
+        >
+          Email is required
+        </p>
+        <p
+          *ngIf="email?.errors?.['email']"
+          class="text-sm text-red-600 dark:text-red-400"
+        >
+          Please enter a valid email address
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <label
+        for="password"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+      >
+        Password
+      </label>
+      <div class="relative">
+        <input
+          id="password"
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          autocomplete="new-password"
+          [class]="
+            'block w-full px-3 py-2 pr-10 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 ' +
+            (password?.invalid && password?.touched
+              ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20'
+              : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white')
+          "
+          placeholder="Create a password"
+        />
+
+        <button
+          type="button"
+          (click)="togglePasswordVisibility('password')"
+          class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+        >
+          <svg
+            *ngIf="!showPassword"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+            />
+          </svg>
+
+          <svg
+            *ngIf="showPassword"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div *ngIf="password?.invalid && password?.touched" class="mt-1">
+        <p
+          *ngIf="password?.errors?.['required']"
+          class="text-sm text-red-600 dark:text-red-400"
+        >
+          Password is required
+        </p>
+        <p
+          *ngIf="password?.errors?.['minlength']"
+          class="text-sm text-red-600 dark:text-red-400"
+        >
+          Password must be at least 6 characters long
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <label
+        for="confirmPassword"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+      >
+        Confirm password
+      </label>
+      <div class="relative">
+        <input
+          id="confirmPassword"
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          autocomplete="new-password"
+          [class]="
+            'block w-full px-3 py-2 pr-10 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 ' +
+            (confirmPassword?.invalid && confirmPassword?.touched
+              ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20'
+              : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white')
+          "
+          placeholder="Confirm your password"
+        />
+
+        <button
+          type="button"
+          (click)="togglePasswordVisibility('confirmPassword')"
+          class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+        >
+          <svg
+            *ngIf="!showConfirmPassword"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+            />
+          </svg>
+
+          <svg
+            *ngIf="showConfirmPassword"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        *ngIf="confirmPassword?.invalid && confirmPassword?.touched"
+        class="mt-1"
+      >
+        <p
+          *ngIf="confirmPassword?.errors?.['required']"
+          class="text-sm text-red-600 dark:text-red-400"
+        >
+          Please confirm your password
+        </p>
+        <p
+          *ngIf="confirmPassword?.errors?.['passwordMismatch']"
+          class="text-sm text-red-600 dark:text-red-400"
+        >
+          Passwords do not match
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-start">
+      <div class="flex items-center h-5">
+        <input
+          id="agreeToTerms"
+          type="checkbox"
+          formControlName="agreeToTerms"
+          [class]="
+            'h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-600 rounded ' +
+            (agreeToTerms?.invalid && agreeToTerms?.touched
+              ? 'border-red-300'
+              : '')
+          "
+        />
+      </div>
+      <div class="ml-3 text-sm">
+        <label for="agreeToTerms" class="text-gray-700 dark:text-gray-300">
+          I agree to the
+          <a
+            href="#"
+            class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400"
+            >Terms and Conditions</a
+          >
+          and
+          <a
+            href="#"
+            class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400"
+            >Privacy Policy</a
+          >
+        </label>
+        <div
+          *ngIf="agreeToTerms?.invalid && agreeToTerms?.touched"
+          class="mt-1"
+        >
+          <p class="text-sm text-red-600 dark:text-red-400">
+            You must agree to the terms and conditions
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button
+        type="submit"
+        [disabled]="isLoading"
+        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+      >
+        <svg
+          *ngIf="isLoading"
+          class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+
+        {{ isLoading ? "Creating account..." : "Create account" }}
+      </button>
+    </div>
+  </form>
+</div>

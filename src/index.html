@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Angular Authentication App</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Modern Angular authentication app with Tailwind CSS and Flowbite components"
+    />
+    <meta name="theme-color" content="#3b82f6" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        if (theme === "dark" || (!theme && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+
+    <style>
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        z-index: 9999;
+      }
+
+      .dark .loading-container {
+        background: #111827;
+        color: #ffffff;
+      }
+
+      .loading-content {
+        text-align: center;
+        max-width: 320px;
+        padding: 20px;
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #e5e7eb;
+        border-top: 3px solid #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+
+      .dark .loading-spinner {
+        border-color: #374151;
+        border-top-color: #60a5fa;
+      }
+
+      .loading-text {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .dark .loading-text {
+        color: #9ca3af;
+      }
+
+      .loading-app-name {
+        color: #111827;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .dark .loading-app-name {
+        color: #f9fafb;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      app-root:not(:empty) + .loading-container {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <app-root></app-root>
+
+    <div class="loading-container">
+      <div class="loading-content">
+        <div class="loading-app-name">Angular Auth App</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading application...</div>
+        <div class="loading-text" style="font-size: 12px; opacity: 0.7">
+          Powered by Angular 18 + Tailwind CSS
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
